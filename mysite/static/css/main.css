@@ -1,6 +1,20 @@
 body{
-    background-image: url('../images/personeltkp.jpg');
+    background-image: url('../images/background.jpg');
     background-repeat: no-repeat;
-    /*border-image-width: 100%;
-    background-size: 100%;*/
+    /*border-image-width: 100%;*/
+    background-size: 100%;
+}
+
+.img-thumbnail {
+    padding: 1.25rem;
+    background-color: black;
+    border: 1pxsolidvar(--bs-border-color);
+    border-radius: .375rem;
+    max-width: 100%;
+    /* height: 50vh; */ /* 50% auto */
+}
+
+p{
+    color: white;
+    font-size: large;
 }
