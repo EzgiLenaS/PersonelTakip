@@ -1,0 +1,105 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+	<title>Crud Personel</title>
+	
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-dark">
+		<div class="container-fluid">		  	
+			<div class="col-md-11">
+				<div class="navbar-brand text-white" href="{% url 'main' %}">Personel Info Page
+				</div>
+			</div>
+			<div class="col-md-1">
+				<a type="button" class="btn btn-light" href="{% url 'personellogin' %}"> Logout
+				</a>
+			</div>  
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="text-center text-white bg-dark p-2">{{edit.name}} {{edit.surname}}'s Details</h2>    
+				
+				<label>Dayoff Number: {{edit.dayoffs}} </label>
+				<br>
+				<label>Personel id: {{edit.personelid}} </label>
+				<br>
+				<label>TCKN: 
+				{{edit.tckn}} </label>	
+				<br>		
+				<label>SGK no: {{edit.sgk}} </label>
+				<br>
+				<label>Blood Type: 
+				{{edit.bloodtype}} </label>	
+				<br>				
+				<label>Father Name: {{edit.fathername}} </label>
+				<br>
+				<label>Mother Name: {{edit.mothername}}  </label>
+				<br>
+				<label>Marital Status: {{edit.status}} </label>
+				<br>
+				<label>Birth Place: {{edit.birthplace}} </label>
+				<br>					
+				<label>Birthdate: 
+				{{edit.birthdate}} </label>
+				<br>
+				<label>Province: 
+				{{edit.province}} </label>
+				<br>					
+				<label>Military Status: {{edit.militarystatus}} </label>
+				<br>
+				<label>Graduated School: {{edit.school}} </label>
+				<br>					
+				<label>Department: {{edit.department}} </label>
+				<br>
+				<label>Telephone: {{edit.telephone}} </label>
+				<br>		
+				<label>Email: {{edit.email}} </label>
+				<br>
+				<label>Address: {{edit.address}} </label>	
+			</div>
+
+			<div class="col-md-8">
+				<h2 class="text-center text-white bg-dark p-2">Annual Leave</h2>
+				<form action="" method="post"> {% csrf_token %}
+					<div class="row mb-3">
+						<label for="colFormLabel" class="col-sm-2 col-form-label">Select the Reason</label>
+						<div class="col-sm-10">
+							<select id="reason" class="form-control mt-2" name="reason"required>
+								<option selected> Select the Reason</option>
+								<option value="dogumizni">Dogum Izni</option>
+								<option value="oylesine">Oylesine</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="number" class="form-control mt-2" placeholder="Enter the number of days" name="dayoff" Required>
+					</div>
+					<br>
+					<div class="d-grid gap-2">
+						<button class="btn btn-success" type="submit">Submit</button>
+					</div>
+
+					<br>
+					<div class="d-grid gap-2">
+						<a  href="{% url 'oldforms' edit.personelid %}" class="btn btn-success" type="button">Old Forms</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> 
+
+	</body>
+	</html>

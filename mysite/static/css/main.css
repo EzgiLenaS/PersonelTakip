@@ -7,8 +7,7 @@ body{
 
 .img-thumbnail {
     padding: 1.25rem;
-    background-color: black;
-    border: 1pxsolidvar(--bs-border-color);
+    /* background-color: black; */
     border-radius: .375rem;
     max-width: 100%;
     /* height: 50vh; */ /* 50% auto */

@@ -78,7 +78,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "takipsystem",
+        "NAME": "personelsystem",
         "USER": "root",
         "PASSWORD": "",
         "HOST": "localhost",  # Or an IP Address that your DB is hosted on
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+#AUTH_USER_MODEL = 'app.MyUsers'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

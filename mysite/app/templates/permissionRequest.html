@@ -1,0 +1,57 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+	<title>Main Page</title>
+	
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-dark">
+		<div class="container-fluid">		  	
+			<div class="col-md-5">
+				<a class="navbar-brand" href="{% url 'main' %}">
+					<img src="{% static 'images/minipersonel.png' %}"alt="">
+				</a>
+			</div>
+			<div class="col-md-7">
+				<div class="navbar-brand text-white">Permissions Page
+				</div>
+			</div>  
+		</div>
+	</nav>
+	<h2 class="text-center text-white bg-dark p-2">Permissions</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Reason</th>
+				<th scope="col">Number Of Days</th>
+				<th scope="col">Accept</th>
+				<th scope="col">Decline</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in forms %}
+			<tr>
+				<th scope="row">{{d.personelid}}</th>
+				<td>{{d.reason}}</td>
+				<td>{{d.dayoff}}</td>
+
+				
+				<td><a href="{% url 'acceptrequest' d.id %}" type="button" class="btn btn-outline-primary">Accept</a></td>
+
+				<td><a href="{% url 'deleterequest' d.id %}" type="button" class="btn btn-outline-danger">Decline</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> 
+
+</body>
+</html>

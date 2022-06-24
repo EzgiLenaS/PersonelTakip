@@ -2,10 +2,11 @@ from django.views.generic import View, CreateView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonelDataBase
+from .models import PersonelDataBase, IzinFormlariDataBase, OldFormsDataBase
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+#import datetime
 # Create your views here.
 
 
@@ -18,14 +19,14 @@ class SignupView(View):
     def get(self, request):
         return render(request, "signup.html")
     def post(self, request):
-        uname=request.POST.get("username")
-        email=request.POST.get("email")
+        companyname=request.POST.get("companyname")
+        adminnamesurname=request.POST.get("adminnamesurname")
         password=request.POST.get("pass1")
         confirmpassword=request.POST.get("pass2")
         if(password!=confirmpassword):
             return HttpResponse("Password Incorrect")
-        print(uname, email, password, confirmpassword)
-        myuser=User.objects.create_user(uname, email, password)
+        print(companyname, adminnamesurname, password, confirmpassword)
+        myuser=User.objects.create_user(adminnamesurname, companyname, password)
         myuser.save()
         return render(request, "login.html")
 
@@ -34,19 +35,20 @@ class LoginView(View):
     def get(self, request):
         return render(request, "login.html")
     def post(self, request):
-        print("lol")
-        username=request.POST.get("username")
-        pass1=request.POST.get("pass1")
+        adminnamesurname=request.POST.get("adminnamesurname")
+        password=request.POST.get("pass1")
 
-        myuser=authenticate(uname=username, password = pass1)
+        print( "adminnamesurname:", adminnamesurname)
+        print("password: ", password)
 
-        print(myuser)
-        
+        myuser=authenticate(username=adminnamesurname, password=password)
+        print("deneme:", myuser)
         if myuser is not None:
             login(request, myuser) 
             print("girdi mi? success")
             messages.success(request, "Login Success")
-            return redirect("personel")
+            print("<adminnamesurname>", adminnamesurname)
+            return redirect("main")
         else:
             messages.error(request, "Login Failed")
             print("girdi mi? failed")
@@ -65,6 +67,7 @@ class CrudPersonelView(View):
 
     def post(self, request):  
 
+        dayoffs=request.POST.get("dayoffs")
         personelid=request.POST.get('personelid')
         tckn=request.POST.get('tckn')
         name= request.POST.get('name')
@@ -86,18 +89,20 @@ class CrudPersonelView(View):
 
         
 
-        query=PersonelDataBase(personelid=personelid, tckn=tckn, name=name, surname=surname, sgk=sgk, bloodtype=bloodtype, fathername=fathername, mothername=mothername, status=status, birthplace=birthplace, birthdate=birthdate, province=province, militarystatus=militarystatus, school=school, department=department, telephone=telephone, email=email, address=address)
+        query=PersonelDataBase(dayoffs=dayoffs, personelid=personelid, tckn=tckn, name=name, surname=surname, sgk=sgk, bloodtype=bloodtype, fathername=fathername, mothername=mothername, status=status, birthplace=birthplace, birthdate=birthdate, province=province, militarystatus=militarystatus, school=school, department=department, telephone=telephone, email=email, address=address)
         query.save()
         messages.info(request, "Data Inserted Successfully")
         #render redirect("/") 
 
         #template = loader.get_template("crudPersonel.html")
+
         return redirect("personel") 
 
 # def index(request):
 #    return HttpResponse("Hello, world. You're at the polls index.")
 class UpdateDataView(View):
-    def post(self, request, id):
+    def post(self, request, personelid):
+        dayoffs=request.POST.get('dayoffs')
         personelid=request.POST.get('personelid')
         tckn=request.POST.get('tckn')
         name= request.POST.get('name')
@@ -117,8 +122,9 @@ class UpdateDataView(View):
         email= request.POST.get('email')
         address= request.POST.get('address')
 
-        edit=PersonelDataBase.objects.get(id=id)
+        edit=PersonelDataBase.objects.get(personelid=personelid)
 
+        edit.dayoffs=dayoffs
         edit.personelid=personelid
         edit.tckn=tckn
         edit.name=name
@@ -141,15 +147,90 @@ class UpdateDataView(View):
         
         messages.warning(request, "Data Updates Successfully")
 
-        d=PersonelDataBase.objects.get(id=id)
+        d=PersonelDataBase.objects.get(personelid=personelid)
         context={"d": d}
         return redirect("personel") 
 
 class DeleteDataView(View):
-    def get(self, request, id):
-        d=PersonelDataBase.objects.get(id=id)
+    def get(self, request, personelid):
+        d=PersonelDataBase.objects.get(personelid=personelid)
         d.delete()
         messages.error(request, "Data Deleted Successfully")
         return redirect("personel")
 
+class PersonelLoginView(View):
+    def get(self, request):
+        return render(request, "loginPersonel.html")
+    def post(self, request):
+        print("burada misin?")
+        personelid=request.POST.get("personelid")
 
+        edit = PersonelDataBase.objects.get(personelid=personelid)
+        context={"edit": edit}
+
+        if edit is not None: 
+            print("girdi mi? success")
+            return redirect('personelinfo', personelid)
+        else:
+            messages.error(request, "Login Failed")
+            return redirect("personellogin")
+        return render(request, "loginPersonel.html")
+
+class InfoAndAnnualLeaveView(View):
+    def get(self, request, personelid):
+        edit = PersonelDataBase.objects.get(personelid=personelid)
+        context={"edit": edit}
+        return render(request, "infoAndAnnualLeave.html", context)
+    def post(self, request, personelid):
+        edit = PersonelDataBase.objects.get(personelid=personelid)
+        reason=request.POST.get('reason')
+        dayoff=request.POST.get('dayoff')
+        query=IzinFormlariDataBase(personelid=edit, reason=reason, dayoff=dayoff)
+        query.save()
+        forms=OldFormsDataBase(personelid=edit, reason=reason, dayoff=dayoff)
+        forms.save()
+        return redirect('personelinfo', personelid)
+
+class CompanyMainPageView(View):
+    def get(self, request):
+        
+        return render(request, "companyMainPage.html")
+
+class SetPermissionView(View):
+    def get(self, request):
+        return render(request, "setPermission.html")
+
+class PermissionRequestView(View):
+    def get(self, request):
+        forms=IzinFormlariDataBase.objects.all()
+        context={"forms": forms}
+        return render(request, "permissionRequest.html", context)
+        
+
+class UpdatePermissionView(View):
+    def get(self, request, id):
+        edit=IzinFormlariDataBase.objects.get(id=id)
+        personelold = PersonelDataBase.objects.get(personelid=edit.personelid.personelid)
+        personelold.dayoffs = personelold.dayoffs - edit.dayoff
+        personelold.save()
+        edit.delete()
+        return redirect("permissionrequest")
+
+class DeletePermissionView(View):
+    def get(self, request, id):
+        d=IzinFormlariDataBase.objects.get(id=id)
+        d.delete()
+        return redirect("permissionrequest")
+
+class OldFormsPageView(View):
+    def get(self, request, personelid):
+        oldforms=OldFormsDataBase.objects.get(personelid=personelid)
+        context={"oldforms": oldforms}
+        print(context)
+        return render(request, "oldFormsPage.html", context)
+
+class DeleteFormsView(View):
+    def get(self, request, id):
+        d=OldFormsDataBase.objects.get(id=id)
+        d.delete()
+        return redirect("oldforms")
