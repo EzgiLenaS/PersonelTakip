@@ -68,11 +68,11 @@
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Birthdate" name="birth_date" Required>
+							<input type="date" class="form-control mt-2" placeholder="Birthdate" name="birth_date" Required>
 						</div>
 
                     <div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Startdate" name="start_date" Required>
+							<input type="date" class="form-control mt-2" placeholder="Startdate" name="start_date" Required>
 						</div>
 
 						<br>
@@ -123,7 +123,7 @@
 											</div>
 											<div class="modal-body">
 												
-												<form action="{% url 'update' d.employee_id %}" method="post"> {% csrf_token %}
+												<form action="{% url 'update' %}" method="post"> {% csrf_token %}
 
                                                     <div class="form-group">
 														<div class="row mb-3">

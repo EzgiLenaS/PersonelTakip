@@ -7,7 +7,7 @@ urlpatterns = [
     path("login/", views.CompanyLoginView.as_view(), name="login"),
     path("personel", views.CRDEmployeeView.as_view(), name="personel"),
 
-    path("update/<employee_id>", views.CompanyUpdateEmployeeView.as_view(), name="update"),
+    path("update", views.CompanyUpdateEmployeeView.as_view(), name="update"),
     path("delete/<employee_id>", views.CompanyDeleteEmployeeView.as_view(), name="delete"),
 
     path("personellogin", views.EmployeeLoginView.as_view(), name="personellogin"),

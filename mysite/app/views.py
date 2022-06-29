@@ -57,8 +57,6 @@ class CompanyLoginView(View):
             messages.error(request, "Login Failed")
             return redirect("login")
 
-        return render(request, "company_login.html")
-
 
 class CRDEmployeeView(View):
     def get(self, request):
@@ -100,11 +98,7 @@ class CRDEmployeeView(View):
 
 
 class CompanyUpdateEmployeeView(View):
-    def post(self, request, employee_id):
-
-        edit = Employee.objects.get(employee_id=employee_id)
-
-        print("edit: ", edit.employee_id)
+    def post(self, request):
 
         annual_leave = request.POST.get("annual_leave")
         name = request.POST.get("name")
@@ -116,6 +110,8 @@ class CompanyUpdateEmployeeView(View):
         tckn = request.POST.get("tckn")
         birth_date = request.POST.get("birth_date")
         start_date = request.POST.get("start_date")
+
+        edit = Employee.objects.get(employee_id=employee_id)
 
         edit.annual_leave = annual_leave,
         edit.name = name,
