@@ -15,7 +15,7 @@
 	<nav class="navbar navbar-expand-lg bg-dark">
 		<div class="container-fluid">		  	
 			<div class="col-md-5">
-				<a class="navbar-brand" href="{% url 'personelinfo' oldforms.personelid.personelid %}">
+				<a class="navbar-brand" href="{% url 'personelinfo' oldforms.employee_id.employee_id %}">
 					<img src="{% static 'images/minipersonel.png' %}"alt="">
 				</a>
 			</div>
@@ -44,9 +44,9 @@
 					<tbody>
 						
 						<tr>
-							<th scope="row">{{oldforms.personelid.name}}</th>
+							<th scope="row">{{oldforms.employee_id.name}}</th>
 							<td>{{oldforms.reason}}</td>
-							<td>{{oldforms.dayoff}}</td>
+							<td>{{oldforms.annual_leave}}</td>
 							<td>Status</td>
 
 							<td><a href="{% url 'deleteforms' oldforms.id %}" type="button" class="btn btn-outline-danger">Delete</a></td>

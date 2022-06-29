@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{%static 'css/main.css' %}">
   
 
-  <title>Signup</title>
+  <title>Company Login</title>
   
 </head>
 <body>
@@ -25,35 +25,25 @@
       <img src="{% static 'images/personeltkp.png' %}" class="img-thumbnail" alt="">
     </div>
     <div class="col-md-4">
-      <h2 class="text-white text-center">Company Signup</h2>
-      <form action="{% url 'signup' %}" method="post"> {% csrf_token %}
-        <label class="text-white">Company Name</label>
+      <h2 class="text-white text-center">Company Login</h2>
+      <form action="{% url 'login' %}" method="post"> {% csrf_token %}
+        <label class="text-white">Admin Name</label>
         <div class="form-group">
-          <input type="text" class="form-control" name="companyname" Required>
-        </div>
-
-        <label class="text-white">Company Admin Name - Surname</label>
-        <div class="form-group">
-          <input type="text" class="form-control" name="adminnamesurname" Required>
+          <input type="text" class="form-control" name="name" id="name" required>
         </div>
 
         <label class="text-white mt-3">Password</label>
         <div class="form-group">
-          <input type="password" class="form-control" name="pass1">
-        </div>
-
-        <label class="text-white mt-3">Confirm Password</label>
-        <div class="form-group">
-          <input type="password" class="form-control" name="pass2">
+          <input type="password" class="form-control" name="password1" id="password1" required>
         </div>
 
         <div class="d-grid gap-2 mt-4">
-          <button class="btn btn-light" type="submit">Sign In</button>
+          <button class="btn btn-light" type="submit">Login</button>
         </div>
       </form>
 
-      <p class="mt-3" > Company Login <a href="{% url 'login' %}"> Company Login </a> </p>
-      <p class="mt-3" > Personel Login <a href="{% url 'personellogin' %}"> Personel Login </a> </p>
+      <p class="mt-3" > Company Sign Up <a href="{% url 'signup' %}"> Company Sign Up </a> </p>
+      <p class="mt-3" > Click for Personel Login <a href="{% url 'personellogin' %}"> Employee Login </a> </p>
 
     </div>
   </div>

@@ -2,274 +2,234 @@ from django.views.generic import View, CreateView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonelDataBase, IzinFormlariDataBase, OldFormsDataBase
+
+
+from .models import Admin, Employee, AnnualLeaveForm, OldForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+
 # import datetime
 # Create your views here.
 
-
-class IndexView(View):
-    def get(self, request):
-        return HttpResponse("fatih naber. you are at the polls index")
-
-
 class SignupView(View):
     def get(self, request):
-        return render(request, "signup.html")
+        return render(request, "company_signup.html")
 
     def post(self, request):
-        companyname = request.POST.get("companyname")
-        adminnamesurname = request.POST.get("adminnamesurname")
-        password = request.POST.get("pass1")
-        confirmpassword = request.POST.get("pass2")
+        company_name = request.POST.get("company_name")
+        name = request.POST.get("name")
+        surname = request.POST.get("surname")
+        email = request.POST.get("email")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
 
-        if password != confirmpassword:
-            return HttpResponse("Password Incorrect")
-        print(companyname, adminnamesurname, password, confirmpassword)
+        query = Admin(
+            company_name=company_name,
+            name=name,
+            surname=surname,
+            email=email,
+            password=password1,
+        )
 
-        myuser = User.objects.create_user(adminnamesurname, companyname, password)
-        myuser.save()
-        
-        return render(request, "login.html")
+        if password1 == password2:
+            query.save()
+            return render(request, "company_login.html")
+
+        return render(request, "company_signup.html")  ## burada forma gerek olabilir yine
 
 
-class LoginView(View):
+class CompanyLoginView(View):
     def get(self, request):
-        return render(request, "login.html")
+        return render(request, "company_login.html")
 
     def post(self, request):
-        adminnamesurname = request.POST.get("adminnamesurname")
-        password = request.POST.get("pass1")
+        name = request.POST.get("name")
+        password1 = request.POST.get("password1")
 
-        print("adminnamesurname:", adminnamesurname)
-        print("password: ", password)
+        edit = Admin.objects.get(name=name, password=password1)
 
-        myuser = authenticate(username=adminnamesurname, password=password)
-        print("deneme:", myuser)
-        if myuser is not None:
-            login(request, myuser)
-            print("girdi mi? success")
+        if edit is not None:
             messages.success(request, "Login Success")
-            print("<adminnamesurname>", adminnamesurname)
             return redirect("main")
         else:
             messages.error(request, "Login Failed")
-            print("girdi mi? failed")
             return redirect("login")
 
-        return render(request, "login.html")
+        return render(request, "company_login.html")
 
 
-class CrudPersonelView(View):
+class CRDEmployeeView(View):
     def get(self, request):
-        data = PersonelDataBase.objects.all()
+        data = Employee.objects.all()
         context = {"data": data}
-        # print(context)
-        # template = loader.get_template("crudPersonel.html")
-        # return HttpResponse(template.render({}, request, context))
-        return render(request, "crudPersonel.html", context)
+
+        return render(request, "crd_employee.html", context)
 
     def post(self, request):
 
-        dayoffs = request.POST.get("dayoffs")
-        personelid = request.POST.get("personelid")
-        tckn = request.POST.get("tckn")
+        annual_leave = request.POST.get("annual_leave")
         name = request.POST.get("name")
         surname = request.POST.get("surname")
-        sgk = request.POST.get("sgk")
-        bloodtype = request.POST.get("bloodtype")
-        fathername = request.POST.get("fathername")
-        mothername = request.POST.get("mothername")
-        status = request.POST.get("status")
-        birthplace = request.POST.get("birthplace")
-        birthdate = request.POST.get("birthdate")
-        province = request.POST.get("province")
-        militarystatus = request.POST.get("militarystatus")
-        school = request.POST.get("school")
-        department = request.POST.get("department")
-        telephone = request.POST.get("telephone")
         email = request.POST.get("email")
-        address = request.POST.get("address")
+        password = request.POST.get("password")
+        employee_id = request.POST.get("employee_id")
+        department = request.POST.get("department")
+        tckn = request.POST.get("tckn")
+        birth_date = request.POST.get("birth_date")
+        start_date = request.POST.get("start_date")
 
-        query = PersonelDataBase(
-            dayoffs=dayoffs,
-            personelid=personelid,
-            tckn=tckn,
+        query = Employee(
+            annual_leave=annual_leave,
             name=name,
             surname=surname,
-            sgk=sgk,
-            bloodtype=bloodtype,
-            fathername=fathername,
-            mothername=mothername,
-            status=status,
-            birthplace=birthplace,
-            birthdate=birthdate,
-            province=province,
-            militarystatus=militarystatus,
-            school=school,
-            department=department,
-            telephone=telephone,
             email=email,
-            address=address,
+            password=password,
+            employee_id=employee_id,
+            department=department,
+            tckn=tckn,
+            birth_date=birth_date,
+            start_date=start_date,
         )
         query.save()
-        messages.info(request, "Data Inserted Successfully")
-        # render redirect("/")
 
-        # template = loader.get_template("crudPersonel.html")
+        messages.info(request, "Data Inserted Successfully")
 
         return redirect("personel")
 
 
-# def index(request):
-#    return HttpResponse("Hello, world. You're at the polls index.")
-class UpdateDataView(View):
-    def post(self, request, personelid):
-        dayoffs = request.POST.get("dayoffs")
-        personelid = request.POST.get("personelid")
-        tckn = request.POST.get("tckn")
+class CompanyUpdateEmployeeView(View):
+    def post(self, request, employee_id):
+
+        edit = Employee.objects.get(employee_id=employee_id)
+
+        print("edit: ", edit.employee_id)
+
+        annual_leave = request.POST.get("annual_leave")
         name = request.POST.get("name")
         surname = request.POST.get("surname")
-        sgk = request.POST.get("sgk")
-        bloodtype = request.POST.get("bloodtype")
-        fathername = request.POST.get("fathername")
-        mothername = request.POST.get("mothername")
-        status = request.POST.get("status")
-        birthplace = request.POST.get("birthplace")
-        birthdate = request.POST.get("birthdate")
-        province = request.POST.get("province")
-        militarystatus = request.POST.get("militarystatus")
-        school = request.POST.get("school")
-        department = request.POST.get("department")
-        telephone = request.POST.get("telephone")
         email = request.POST.get("email")
-        address = request.POST.get("address")
+        password = request.POST.get("password")
+        employee_id = request.POST.get("employee_id")
+        department = request.POST.get("department")
+        tckn = request.POST.get("tckn")
+        birth_date = request.POST.get("birth_date")
+        start_date = request.POST.get("start_date")
 
-        edit = PersonelDataBase.objects.get(personelid=personelid)
-
-        edit.dayoffs = dayoffs
-        edit.personelid = personelid
-        edit.tckn = tckn
-        edit.name = name
-        edit.surname = surname
-        edit.sgk = sgk
-        edit.bloodtype = bloodtype
-        edit.fathername = fathername
-        edit.mothername = mothername
-        edit.status = status
-        edit.birthplace = birthplace
-        edit.birthdate = birthdate
-        edit.province = province
-        edit.militarystatus = militarystatus
-        edit.school = school
-        edit.department = department
-        edit.telephone = telephone
-        edit.email = email
-        edit.address = address
+        edit.annual_leave = annual_leave,
+        edit.name = name,
+        edit.surname = surname,
+        edit.email = email,
+        edit.password = password,
+        edit.employee_id = employee_id,
+        edit.department = department,
+        edit.tckn = tckn,
+        edit.birth_date = birth_date,
+        edit.start_date = start_date,
         edit.save()
 
         messages.warning(request, "Data Updates Successfully")
 
-        d = PersonelDataBase.objects.get(personelid=personelid)
+        d = Employee.objects.get(employee_id=employee_id)
         context = {"d": d}
+
         return redirect("personel")
 
 
-class DeleteDataView(View):
-    def get(self, request, personelid):
-        d = PersonelDataBase.objects.get(personelid=personelid)
-        d.delete()
+class CompanyDeleteEmployeeView(View):
+    def get(self, request, employee_id):
+        d = Employee.objects.get(employee_id=employee_id).delete()
+
         messages.error(request, "Data Deleted Successfully")
+
         return redirect("personel")
 
 
-class PersonelLoginView(View):
+class EmployeeLoginView(View):
     def get(self, request):
-        return render(request, "loginPersonel.html")
+        return render(request, "login_employee.html")
 
     def post(self, request):
-        print("burada misin?")
-        personelid = request.POST.get("personelid")
+        employee_id = request.POST.get("employee_id")
 
-        edit = PersonelDataBase.objects.get(personelid=personelid)
-        context = {"edit": edit}
+        edit = Employee.objects.get(employee_id=employee_id)
 
         if edit is not None:
-            print("girdi mi? success")
-            return redirect("personelinfo", personelid)
+            return redirect("personelinfo", employee_id)
         else:
             messages.error(request, "Login Failed")
             return redirect("personellogin")
-        return render(request, "loginPersonel.html")
 
 
-class InfoAndAnnualLeaveView(View):
-    def get(self, request, personelid):
-        edit = PersonelDataBase.objects.get(personelid=personelid)
+class EmployeeMainView(View):
+    def get(self, request, employee_id):
+        edit = Employee.objects.get(employee_id=employee_id)
         context = {"edit": edit}
-        return render(request, "infoAndAnnualLeave.html", context)
 
-    def post(self, request, personelid):
-        edit = PersonelDataBase.objects.get(personelid=personelid)
+        return render(request, "employee_main_page.html", context)
+
+    def post(self, request, employee_id):
+        edit = Employee.objects.get(employee_id=employee_id)
         reason = request.POST.get("reason")
-        dayoff = request.POST.get("dayoff")
-        query = IzinFormlariDataBase(personelid=edit, reason=reason, dayoff=dayoff)
+        annual_leave = request.POST.get("annual_leave")
+        query = AnnualLeaveForm(employee_id=edit, reason=reason, annual_leave=annual_leave)
         query.save()
-        forms = OldFormsDataBase(personelid=edit, reason=reason, dayoff=dayoff)
+        forms = OldForm(employee_id=edit, reason=reason, annual_leave=annual_leave)
         forms.save()
-        return redirect("personelinfo", personelid)
+
+        return redirect("personelinfo", employee_id)
 
 
 class CompanyMainPageView(View):
     def get(self, request):
+        return render(request, "company_main_page.html")
 
-        return render(request, "companyMainPage.html")
 
-
-class SetPermissionView(View):
+class CompanySetPermissionPageView(View):
     def get(self, request):
-        return render(request, "setPermission.html")
+        return render(request, "set_permission_page.html")
 
 
-class PermissionRequestView(View):
+class CompanyPermissionRequestPageView(View):
     def get(self, request):
-        forms = IzinFormlariDataBase.objects.all()
+        forms = AnnualLeaveForm.objects.all()
         context = {"forms": forms}
-        return render(request, "permissionRequest.html", context)
+
+        return render(request, "permission_request_page.html", context)
 
 
-class UpdatePermissionView(View):
+class CompanyUpdatePermissionPageView(View):
     def get(self, request, id):
-        edit = IzinFormlariDataBase.objects.get(id=id)
-        personelold = PersonelDataBase.objects.get(
-            personelid=edit.personelid.personelid
+        edit = AnnualLeaveForm.objects.get(id=id)
+        personelold = Employee.objects.get(
+            employee_id=edit.employee_id.employee_id
         )
-        personelold.dayoffs = personelold.dayoffs - edit.dayoff
+
+        personelold.annual_leave = personelold.annual_leave - edit.annual_leave
         personelold.save()
         edit.delete()
+
         return redirect("permissionrequest")
 
 
-class DeletePermissionView(View):
+class CompanyDeletePermissionPageView(View):
     def get(self, request, id):
-        d = IzinFormlariDataBase.objects.get(id=id)
-        d.delete()
+        d = AnnualLeaveForm.objects.get(id=id).delete()
+
         return redirect("permissionrequest")
 
 
-class OldFormsPageView(View):
-    def get(self, request, personelid):
-        oldforms = OldFormsDataBase.objects.get(personelid=personelid)
+class EmployeeOldFormsPageView(View):
+    def get(self, request, employee_id):
+        oldforms = OldForm.objects.get(employee_id=employee_id)
         context = {"oldforms": oldforms}
-        print(context)
-        return render(request, "oldFormsPage.html", context)
+
+        return render(request, "old_forms_page.html", context)
 
 
-class DeleteFormsView(View):
+class EmployeeDeleteFormsPageView(View):
     def get(self, request, id):
-        d = OldFormsDataBase.objects.get(id=id)
-        d.delete()
-        return redirect("oldforms")
+        d = OldForm.objects.get(id=id).delete()
+
+        return redirect("oldforms", d.employee_id)

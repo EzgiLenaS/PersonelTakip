@@ -1,0 +1,72 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{%static 'css/main.css' %}">
+  
+
+  <title>Signup</title>
+  
+</head>
+<body>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> 
+
+ <div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{% static 'images/personeltkp.png' %}" class="img-thumbnail" alt="">
+    </div>
+    <div class="col-md-4">
+      <h2 class="text-white text-center">Company Signup</h2>
+      <form action="{% url 'signup' %}" method="post"> {% csrf_token %}
+        <label class="text-white">Company Name</label>
+        <div class="form-group">
+          <input type="text" class="form-control" name="company_name" Required>
+        </div>
+
+        <label class="text-white">Company Admin Name</label>
+        <div class="form-group">
+          <input type="text" class="form-control" name="name" Required>
+        </div>
+
+        <label class="text-white">Company Admin Surname</label>
+        <div class="form-group">
+          <input type="text" class="form-control" name="surname" Required>
+        </div>
+
+        <label class="text-white">Email</label>
+        <div class="form-group">
+          <input type="email" class="form-control" name="email" Required>
+        </div>
+
+        <label class="text-white mt-3">Password</label>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password1">
+        </div>
+
+        <label class="text-white mt-3">Confirm Password</label>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password2">
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+          <button class="btn btn-light" type="submit">Sign In</button>
+        </div>
+      </form>
+
+      <p class="mt-3" > Company Login <a href="{% url 'login' %}"> Company Login </a> </p>
+      <p class="mt-3" > Employee Login <a href="{% url 'personellogin' %}"> Personel Login </a> </p>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

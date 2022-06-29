@@ -39,9 +39,9 @@
 		<tbody>
 			{% for d in forms %}
 			<tr>
-				<th scope="row">{{d.personelid}}</th>
+				<th scope="row">{{d.employee_id}}</th>
 				<td>{{d.reason}}</td>
-				<td>{{d.dayoff}}</td>
+				<td>{{d.annual_leave}}</td>
 
 				
 				<td><a href="{% url 'acceptrequest' d.id %}" type="button" class="btn btn-outline-primary">Accept</a></td>
