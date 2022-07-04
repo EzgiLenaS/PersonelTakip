@@ -41,7 +41,6 @@ class LoginView(View):
         print("password: ", password)
 
         myuser = authenticate(username=first_name, password=password)
-        print("deneme:", myuser)
         if myuser is not None:
             login(request, myuser)
             print("girdi mi? success")
