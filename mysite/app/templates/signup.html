@@ -27,25 +27,7 @@
     <div class="col-md-4">
       <h2 class="text-white text-center">Company Signup</h2>
       <form action="{% url 'signup' %}" method="post"> {% csrf_token %}
-        <label class="text-white">Company Name</label>
-        <div class="form-group">
-          <input type="text" class="form-control" name="companyname" Required>
-        </div>
-
-        <label class="text-white">Company Admin Name - Surname</label>
-        <div class="form-group">
-          <input type="text" class="form-control" name="adminnamesurname" Required>
-        </div>
-
-        <label class="text-white mt-3">Password</label>
-        <div class="form-group">
-          <input type="password" class="form-control" name="pass1">
-        </div>
-
-        <label class="text-white mt-3">Confirm Password</label>
-        <div class="form-group">
-          <input type="password" class="form-control" name="pass2">
-        </div>
+        {{form}}
 
         <div class="d-grid gap-2 mt-4">
           <button class="btn btn-light" type="submit">Sign In</button>

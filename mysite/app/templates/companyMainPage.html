@@ -23,7 +23,7 @@
 				</label>
 			</div>
 			<div class="col-md-1">
-				<a type="button" class="btn btn-light" href="/login/"> Logout
+				<a type="button" class="btn btn-light" href="logout"> Logout
 				</a>
 			</div>  
 		</div>
@@ -36,7 +36,7 @@
 				<form action="{% url 'personel' %}" method="get"> {% csrf_token %}
 					<!-- <form action="/personel/{{edit.email}}" method="get"> {% csrf_token %} -->
 						<div class="d-grid gap-2">
-							<button class="btn btn-success" type="submit">List of Personels</button>
+							<button class="btn btn-success" type="submit">List of Employees</button>
 						</div>
 					</form>
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "mysite.wsgi.application"
-
+AUTH_USER_MODEL = 'app.Profile'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -137,3 +138,6 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS={
     messages.ERROR: 'danger'
 }
+
+#LOGIN_REDIRECT_URL = "/home"
+#LOGOUT_REDIRECT_URL = "/accounts/login"

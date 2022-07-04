@@ -28,45 +28,20 @@
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-md-4">
-				<h2 class="text-center text-white bg-dark p-2">{{edit.name}} {{edit.surname}}'s Details</h2>    
+				<h2 class="text-center text-white bg-dark p-2">{{edit.first_name}} {{edit.last_name}}'s Details</h2>
 				
-				<label>Dayoff Number: {{edit.dayoffs}} </label>
+				<label>Dayoff Number: {{edit.annual_leave}} </label>
 				<br>
-				<label>Personel id: {{edit.personelid}} </label>
+				<label>Personel id: {{edit.employee_id}} </label>
 				<br>
 				<label>TCKN: 
 				{{edit.tckn}} </label>	
-				<br>		
-				<label>SGK no: {{edit.sgk}} </label>
 				<br>
-				<label>Blood Type: 
-				{{edit.bloodtype}} </label>	
-				<br>				
-				<label>Father Name: {{edit.fathername}} </label>
-				<br>
-				<label>Mother Name: {{edit.mothername}}  </label>
-				<br>
-				<label>Marital Status: {{edit.status}} </label>
-				<br>
-				<label>Birth Place: {{edit.birthplace}} </label>
-				<br>					
 				<label>Birthdate: 
-				{{edit.birthdate}} </label>
+				{{edit.birth_date}} </label>
 				<br>
-				<label>Province: 
-				{{edit.province}} </label>
-				<br>					
-				<label>Military Status: {{edit.militarystatus}} </label>
-				<br>
-				<label>Graduated School: {{edit.school}} </label>
-				<br>					
-				<label>Department: {{edit.department}} </label>
-				<br>
-				<label>Telephone: {{edit.telephone}} </label>
-				<br>		
 				<label>Email: {{edit.email}} </label>
 				<br>
-				<label>Address: {{edit.address}} </label>	
 			</div>
 
 			<div class="col-md-8">
@@ -92,7 +67,7 @@
 
 					<br>
 					<div class="d-grid gap-2">
-						<a  href="{% url 'oldforms' edit.personelid %}" class="btn btn-success" type="button">Old Forms</a>
+						<a  href="{% url 'oldforms' edit.employee_id %}" class="btn btn-success" type="button">Old Forms</a>
 					</div>
 				</form>
 			</div>

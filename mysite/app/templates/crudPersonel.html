@@ -20,7 +20,7 @@
 				</a>
 			</div>
 			<div class="col-md-7">
-				<div class="navbar-brand text-white">CRUD Personel Page
+				<div class="navbar-brand text-white">CRUD Employee Page
 				</div>
 			</div>  
 		</div>
@@ -30,22 +30,41 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<h2 class="text-white bg-dark text-center p-2">Create Personel Details</h2>
+				<h2 class="text-white bg-dark text-center p-2">Create Employee Details</h2>
 				<br>
 
 
 				<form action="{% url 'personel' %}" method="post"> {% csrf_token %}
 					<div class="form-group">
-						<input type="number" class="form-control mt-2" placeholder="Enter Current Number of Day-offs" name="dayoffs" Required>
+						<input type="number" class="form-control mt-2" placeholder="Enter Current Number of Day-offs" name="annual_leave" Required>
 					</div>
 
-						<!--<div class="form-group">
-							<label for="startdate">Start Date:</label>
-						    <input type="date" id="startdate" name="startdate" Required>
-						</div>-->
+						<div class="form-group">
+							<input type="username" class="form-control mt-2" placeholder="Enter the employee username" name="username" Required>
+						</div>
 
 						<div class="form-group">
-							<input type="number" class="form-control mt-2" placeholder="Personel id" name="personelid" Required>
+							<input type="text" class="form-control mt-2" placeholder="Enter the employee name" name="first_name" Required>
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control mt-2" placeholder="Enter the employee surname" name="last_name" Required>
+						</div>
+
+					<div class="form-group">
+							<input type="email" class="form-control mt-2" placeholder="Enter the employee email" name="email" Required>
+						</div>
+
+						<div class="form-group">
+							<input type="password" class="form-control mt-2" placeholder="Enter the employee password" name="password" Required>
+						</div>
+
+						<div class="form-group">
+							<input type="number" class="form-control mt-2" placeholder="Employee id" name="employee_id" Required>
+						</div>
+
+					<div class="form-group">
+							<input type="text" class="form-control mt-2" placeholder="Department" name="department" Required>
 						</div>
 
 						<div class="form-group">
@@ -53,87 +72,11 @@
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Enter the personel name" name="name" Required>
+							<input type="date" class="form-control mt-2" placeholder="Birthdate" name="birth_date" Required>
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Enter the personel surname" name="surname" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="number" class="form-control mt-2" placeholder="SGK no" name="sgk" Required>
-						</div>
-
-						<div>
-							<select id="bloodtype" class="form-control mt-2" name="bloodtype" required>
-								<option selected> Select Blood Type</option>
-								<option value="Arh+">Arh+</option>
-								<option value="Arh-">Arh-</option>
-								<option value="Brh+">Brh+</option>
-								<option value="Brh-">Brh-</option>
-								<option value="ABrh+">ABrh+</option>
-								<option value="ABrh-">ABrh-</option>
-								<option value="0rh+">0rh+</option>
-								<option value="0rh-">0rh-</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Father Name" name="fathername" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Mother Name" name="mothername" Required>
-						</div>
-
-						<div>
-							<select id="status" class="form-control mt-2" name="status" required>
-								<option selected> Select Marital Status</option>
-								<option value="Married">Married</option>
-								<option value="Single">Single</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Birth Place" name="birthplace" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Birthdate" name="birthdate" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Province" name="province" Required>
-						</div>
-
-
-						<div>
-							<select id="militarystatus" class="form-control mt-2" name="militarystatus" required>
-								<option selected> Military Status</option>
-								<option value="Done">Done</option>
-								<option value="Not Done Yet">Not Done Yet</option>
-								<option value="Others">Others</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Graduated School" name="school" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Department" name="department" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="number" class="form-control mt-2" placeholder="Telephone no" name="telephone" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="email" class="form-control mt-2" placeholder="Enter the personel email" name="email" Required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Address" name="address" Required>
+							<input type="date" class="form-control mt-2" placeholder="Birthdate" name="start_date" Required>
 						</div>
 
 						<br>
@@ -155,7 +98,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">Personel Id</th>
+								<th scope="col">Employee Id</th>
 								<th scope="col">Name</th>
 								<th scope="col">Surname</th>
 								<th scope="col">Edit</th>
@@ -166,49 +109,31 @@
 
 							{% for d in data %}
 							<tr>
-								<th scope="row">{{d.personelid}}</th>
-								<td>{{d.name}}</td>
-								<td>{{d.surname}}</td>
+								<th scope="row">{{d.employee_id}}</th>
+								<td>{{d.first_name}}</td>
+								<td>{{d.last_name}}</td>
 
 
-								<td><a type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-{{d.personelid}}">Edit</a></td>
+								<td><a type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-{{d.employee_id}}">Edit</a></td>
 
 
 								<!-- Modal -->
-								<div class="modal fade" id="exampleModal-{{d.personelid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal fade" id="exampleModal-{{d.employee_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Update the Information of the Personel</h5>
+												<h5 class="modal-title" id="exampleModalLabel">Update the Information of the Employee</h5>
 												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
 												
-												<form action="{% url 'update' d.personelid %}" method="post"> {% csrf_token %} 
+												<form action="{% url 'update' d.employee_id %}" method="post"> {% csrf_token %}
 
 													<div class="form-group">
 														<div class="row mb-3">
 															<label for="colFormLabel" class="col-sm-2 col-form-label">Number Of Days: </label>
 															<div class="col-sm-10">
-																<input type="number" class="form-control mt-2" placeholder="Enter Current Number of Day-offs" name="dayoffs" value={{d.dayoffs}} Required>
-															</div>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Personel id: </label>
-															<div class="col-sm-10">
-																<input type="number" class="form-control mt-2" placeholder="Personel id" name="personelid" value={{d.personelid}} Required>
-															</div>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">TCKN: </label>
-															<div class="col-sm-10">
-																<input type="number" class="form-control mt-2" placeholder="TCKN" name="tckn" value={{d.tckn}} Required>
+																<input type="number" class="form-control mt-2" placeholder="Enter Current Number of Day-offs" name="annual_leave" value={{d.annual_leave}} Required>
 															</div>
 														</div>
 													</div>
@@ -217,7 +142,16 @@
 														<div class="row mb-3">
 															<label for="colFormLabel" class="col-sm-2 col-form-label">Name: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Enter the personel name" name="name" value={{d.name}} Required>
+																<input type="username" class="form-control mt-2" placeholder="Enter the employee username" name="username" value={{d.username}} Required>
+															</div>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<div class="row mb-3">
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Name: </label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control mt-2" placeholder="Enter the employee name" name="first_name" value={{d.first_name}} Required>
 															</div>
 														</div>
 													</div>
@@ -226,117 +160,34 @@
 														<div class="row mb-3">
 															<label for="colFormLabel" class="col-sm-2 col-form-label">Surname: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Enter the personel surname" name="surname" value={{d.surname}} Required>
+																<input type="text" class="form-control mt-2" placeholder="Enter the employee surname" name="last_name" value={{d.last_name}} Required>
 															</div>
 														</div>
 													</div>
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">SGK no: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Email: </label>
 															<div class="col-sm-10">
-																<input type="number" class="form-control mt-2" placeholder="SGK no" name="sgk" value={{d.sgk}} Required>
-															</div>
-														</div>
-													</div>
-
-													<div>
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Blood Type: </label>
-															<div class="col-sm-10">
-																<select id="bloodtype" class="form-control mt-2" name="bloodtype" value={{d.bloodtype}} required>
-																	<option selected> Select Blood Type</option>
-																	<option value="Arh+">Arh+</option>
-																	<option value="Arh-">Arh-</option>
-																	<option value="Brh+">Brh+</option>
-																	<option value="Brh-">Brh-</option>
-																	<option value="ABrh+">ABrh+</option>
-																	<option value="ABrh-">ABrh-</option>
-																	<option value="0rh+">0rh+</option>
-																	<option value="0rh-">0rh-</option>
-																</select>
+																<input type="email" class="form-control mt-2" placeholder="Enter the email" name="email" value={{d.email}} Required>
 															</div>
 														</div>
 													</div>
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Father Name: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Password: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Father Name" name="fathername" value={{d.fathername}} Required>
+																<input type="password" class="form-control mt-2" placeholder="Enter the password" name="password" value={{d.password}} Required>
 															</div>
 														</div>
 													</div>
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Mother Name: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Employee id: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Mother Name" name="mothername" value={{d.mothername}}  Required>
-															</div>
-														</div>
-													</div>
-
-													<div>
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Marital Status: </label>
-															<div class="col-sm-10">
-																<select id="status" class="form-control mt-2" name="status" value={{d.status}} required>
-																	<option selected> Select Marital Status</option>
-																	<option value="Married">Married</option>
-																	<option value="Single">Single</option>
-																</select>
-															</div>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Birth Place: </label>
-															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Birth Place" name="birthplace" value={{d.birthplace}} Required>
-															</div>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Birthdate: </label>
-															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Birthdate" name="birthdate" value={{d.birthdate}} Required>
-															</div>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Province: </label>
-															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Province" name="province" value={{d.province}} Required>
-															</div>
-														</div>
-													</div>
-
-
-													<div>
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Military Status: </label>
-															<div class="col-sm-10">
-																<select id="militarystatus" class="form-control mt-2" name="militarystatus" value={{d.militarystatus}} required>
-																	<option selected> Military Status</option>
-																	<option value="Done">Done</option>
-																	<option value="Not Done Yet">Not Done Yet</option>
-																	<option value="Others">Others</option>
-																</select>
-															</div>
-														</div>
-													</div>
-
-													<div class="form-group">
-														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Graduated School: </label>
-															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Graduated School" name="school" value={{d.school}} Required>
+																<input type="number" class="form-control mt-2" placeholder="Employee id" name="employee_id" value={{d.employee_id}} Required>
 															</div>
 														</div>
 													</div>
@@ -352,27 +203,27 @@
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Telephone: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">TCKN: </label>
 															<div class="col-sm-10">
-																<input type="number" class="form-control mt-2" placeholder="Telephone no" name="telephone" value={{d.telephone}} Required>
+																<input type="number" class="form-control mt-2" placeholder="TCKN" name="tckn" value={{d.tckn}} Required>
 															</div>
 														</div>
 													</div>
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Email: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Birthdate: </label>
 															<div class="col-sm-10">
-																<input type="email" class="form-control mt-2" placeholder="Enter the personel email" name="email" value={{d.email}} Required>
+																<input type="date" class="form-control mt-2" placeholder="Birthdate" name="birth_date" value={{d.birth_date}} Required>
 															</div>
 														</div>
 													</div>
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Address: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Birthdate: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Address" name="address" value={{d.address}} Required>
+																<input type="date" class="form-control mt-2" placeholder="Birthdate" name="start_date" value={{d.start_date}} Required>
 															</div>
 														</div>
 													</div>
@@ -388,7 +239,7 @@
 								</div>
 
 
-								<td><a href="{% url 'delete' d.personelid %}" type="button" class="btn btn-outline-danger">Delete</a></td>
+								<td><a href="{% url 'delete' d.employee_id %}" type="button" class="btn btn-outline-danger">Delete</a></td>
 							</tr>
 							{% endfor %}
 						</tbody>

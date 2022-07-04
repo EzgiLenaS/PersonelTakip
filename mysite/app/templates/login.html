@@ -27,9 +27,9 @@
     <div class="col-md-4">
       <h2 class="text-white text-center">Company Login</h2>
       <form action="{% url 'login' %}" method="post"> {% csrf_token %}
-        <label class="text-white">Admin Name - Surname</label>
+        <label class="text-white">Admin Username</label>
         <div class="form-group">
-          <input type="text" class="form-control" name="adminnamesurname" id="adminnamesurname" required>
+          <input type="text" class="form-control" name="first_name" id="first_name" required>
         </div>
 
         <label class="text-white mt-3">Password</label>
