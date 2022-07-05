@@ -19,3 +19,7 @@ class AdminProfileCreationForm(UserCreationForm):
             "password2",
             "admin_id",
         )
+
+
+class GeeksForm(forms.Form):
+    geeks_field = forms.DateField( )

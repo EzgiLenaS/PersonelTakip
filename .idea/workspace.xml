@@ -2,35 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff10751-9236-4136-adbe-d8ee207a929a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/PersonelTakip.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/app/templates/crd_employee.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/migrations/0002_rename_personelid_izinformlaridatabase_employee_id_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/companyMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/company_main_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/company_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/company_login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/company_signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/company_signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/crudPersonel.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/crudPersonel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/employee_main_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/employee_main_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/infoAndAnnualLeave.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/loginPersonel.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/login_employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/login_employee.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/oldFormsPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/old_forms_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/permissionRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/permission_request_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/setPermission.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/set_permission_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/app/templates/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/app/migrations/0002_rename_dayoff_annualleaveform_annual_leave_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/app/templates/crd_employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/templates/crd_employee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/app/templates/crudPersonel.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/mysite/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +46,7 @@
       <workItem from="1656316810821" duration="831000" />
       <workItem from="1656317686859" duration="79000" />
       <workItem from="1656318024945" duration="5113000" />
-      <workItem from="1656327263665" duration="68202000" />
+      <workItem from="1656327263665" duration="79318000" />
     </task>
     <servers />
   </component>

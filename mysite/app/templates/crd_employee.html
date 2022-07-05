@@ -100,6 +100,7 @@
 								<th scope="col">Personel Id</th>
 								<th scope="col">Name</th>
 								<th scope="col">Surname</th>
+								<th scope="col">Start Date</th>
 								<th scope="col">Edit</th>
 								<th scope="col">Delete</th>
 							</tr>
@@ -111,6 +112,7 @@
 								<th scope="row">{{d.employee_id}}</th>
 								<td>{{d.first_name}}</td>
 								<td>{{d.last_name}}</td>
+								<td>{{d.start_date}}</td>
 
 
 								<td><a type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-{{d.employee_id}}">Edit</a></td>
@@ -201,19 +203,21 @@
 													</div>
 
 													<div class="form-group">
+														<label >Birth Date Now: {{d.birth_date}}</label>
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Birth Date: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Update: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" name="birth_date" value={{d.birth_date}} Required>
+																<input type="date" class="form-control mt-2" name="birth_date" value={{d.birth_date}} min="2021-01-01" max="2023-01-01">
 															</div>
 														</div>
 													</div>
 
                                                     <div class="form-group">
+														<label >Start Date Now: {{d.start_date}}</label>
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Start Date: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Update: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" name="start_date" value={{d.start_date}} Required>
+																<input type="date" class="form-control mt-2" name="start_date" value={{d.start_date}} min="2021-01-01" min="2021-01-01">
 															</div>
 														</div>
 													</div>

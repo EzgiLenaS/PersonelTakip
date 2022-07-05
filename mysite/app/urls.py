@@ -10,7 +10,7 @@ urlpatterns = [
     path("delete/<employee_id>", views.DeleteDataView.as_view(), name="delete"),
 
     path("personellogin", views.EmployeeLoginView.as_view(), name="personellogin"),
-    path("personelinfo/<employee_id>", views.InfoAndAnnualLeaveView.as_view(), name="personelinfo"),
+    path("personelinfo/<employee_id>", views.EmployeeMainPage.as_view(), name="personelinfo"),
     path("main", views.CompanyMainPageView.as_view(), name="main"),
     path("setpermission", views.CompanySetPermissionPageView.as_view(), name="setpermission"),
     path("permissionrequest", views.CompanyPermissionRequestPageView.as_view(), name="permissionrequest"),

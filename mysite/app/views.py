@@ -55,6 +55,8 @@ class CRDEmployeeView(View):
         return render(request, "crd_employee.html", context)
 
     def post(self, request):
+        a = request.user
+        print("a:", a)
         username = request.POST.get("username")
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
@@ -68,6 +70,8 @@ class CRDEmployeeView(View):
         start_date = request.POST.get("start_date")
 
         query = EmployeeProfile(
+            company_name=a.company_name,
+            city_name=a.city_name,
             username=username,
             first_name=first_name,
             last_name=last_name,
@@ -88,6 +92,8 @@ class CRDEmployeeView(View):
 
 class UpdateDataView(View):
     def post(self, request, employee_id):
+        edit = EmployeeProfile.objects.get(employee_id=employee_id)
+
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         email = request.POST.get("email")
@@ -98,8 +104,6 @@ class UpdateDataView(View):
         tckn = request.POST.get("tckn")
         birth_date = request.POST.get("birth_date")
         start_date = request.POST.get("start_date")
-
-        edit = EmployeeProfile.objects.get(employee_id=employee_id)
 
         edit.first_name = first_name
         edit.last_name = last_name
@@ -113,7 +117,6 @@ class UpdateDataView(View):
         edit.start_date = start_date
 
         edit.save()
-
         messages.warning(request, "Data Updates Successfully")
 
         d = EmployeeProfile.objects.get(employee_id=employee_id)
@@ -149,7 +152,7 @@ class EmployeeLoginView(View):
             return redirect("personellogin")
 
 
-class InfoAndAnnualLeaveView(View):
+class EmployeeMainPage(View):
     def get(self, request, employee_id):
         edit = EmployeeProfile.objects.get(employee_id=employee_id)
         context = {"edit": edit}
