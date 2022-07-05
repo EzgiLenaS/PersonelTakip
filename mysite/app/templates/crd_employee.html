@@ -36,15 +36,18 @@
 
 				<form action="{% url 'personel' %}" method="post"> {% csrf_token %}
 					<div class="form-group">
+						<input type="text" class="form-control mt-2" placeholder="Enter username" name="username" Required>
+					</div>
+					<div class="form-group">
 						<input type="number" class="form-control mt-2" placeholder="Enter Current Number of Day-offs" name="annual_leave" Required>
 					</div>
 
                     <div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Enter the personel name" name="name" Required>
+							<input type="text" class="form-control mt-2" placeholder="Enter the personel name" name="first_name" Required>
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control mt-2" placeholder="Enter the personel surname" name="surname" Required>
+							<input type="text" class="form-control mt-2" placeholder="Enter the personel surname" name="last_name" Required>
 						</div>
 
                     <div class="form-group">
@@ -106,8 +109,8 @@
 							{% for d in data %}
 							<tr>
 								<th scope="row">{{d.employee_id}}</th>
-								<td>{{d.name}}</td>
-								<td>{{d.surname}}</td>
+								<td>{{d.first_name}}</td>
+								<td>{{d.last_name}}</td>
 
 
 								<td><a type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-{{d.employee_id}}">Edit</a></td>
@@ -123,7 +126,7 @@
 											</div>
 											<div class="modal-body">
 												
-												<form action="{% url 'update' %}" method="post"> {% csrf_token %}
+												<form action="{% url 'update' d.employee_id %}" method="post"> {% csrf_token %}
 
                                                     <div class="form-group">
 														<div class="row mb-3">
@@ -138,7 +141,7 @@
 														<div class="row mb-3">
 															<label for="colFormLabel" class="col-sm-2 col-form-label">Name: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Enter the employee name" name="name" value={{d.name}} Required>
+																<input type="text" class="form-control mt-2" placeholder="Enter the employee name" name="first_name" value={{d.first_name}} Required>
 															</div>
 														</div>
 													</div>
@@ -147,7 +150,7 @@
 														<div class="row mb-3">
 															<label for="colFormLabel" class="col-sm-2 col-form-label">Surname: </label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control mt-2" placeholder="Enter the employee surname" name="surname" value={{d.surname}} Required>
+																<input type="text" class="form-control mt-2" placeholder="Enter the employee surname" name="last_name" value={{d.last_name}} Required>
 															</div>
 														</div>
 													</div>
@@ -199,18 +202,18 @@
 
 													<div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Birthdate: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Birth Date: </label>
 															<div class="col-sm-10">
-																<input type="date" class="form-control mt-2" placeholder="Birthdate" name="birth_date" value={{d.birth_date}} Required>
+																<input type="text" class="form-control mt-2" name="birth_date" value={{d.birth_date}} Required>
 															</div>
 														</div>
 													</div>
 
                                                     <div class="form-group">
 														<div class="row mb-3">
-															<label for="colFormLabel" class="col-sm-2 col-form-label">Birthdate: </label>
+															<label for="colFormLabel" class="col-sm-2 col-form-label">Start Date: </label>
 															<div class="col-sm-10">
-																<input type="date" class="form-control mt-2" placeholder="Start Date" name="start_date" value={{d.start_date}} Required>
+																<input type="text" class="form-control mt-2" name="start_date" value={{d.start_date}} Required>
 															</div>
 														</div>
 													</div>
