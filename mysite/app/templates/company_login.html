@@ -29,12 +29,12 @@
       <form action="{% url 'login' %}" method="post"> {% csrf_token %}
         <label class="text-white">Admin Username</label>
         <div class="form-group">
-          <input type="text" class="form-control" name="first_name" id="first_name" required>
+          <input type="text" class="form-control" name="username" id="username" required>
         </div>
 
         <label class="text-white mt-3">Password</label>
         <div class="form-group">
-          <input type="password" class="form-control" name="pass1" id="pass1" required>
+          <input type="password" class="form-control" name="password1" id="password1" required>
         </div>
 
         <div class="d-grid gap-2 mt-4">
@@ -43,7 +43,7 @@
       </form>
 
       <p class="mt-3" > Company Sign Up <a href="{% url 'signup' %}"> Company Sign Up </a> </p>
-      <p class="mt-3" > Click for Personel Login <a href="{% url 'personellogin' %}"> Personel Login </a> </p>
+      <p class="mt-3" > Click for Personel Login <a href="{% url 'personellogin' %}"> Employee Login </a> </p>
 
     </div>
   </div>

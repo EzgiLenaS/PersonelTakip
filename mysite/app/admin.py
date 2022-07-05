@@ -10,6 +10,6 @@ class ViewAdmin(ImportExportModelAdmin):
 
 admin.site.register(models.AdminProfile)
 admin.site.register(models.EmployeeProfile)
-admin.site.register(models.IzinFormlariDataBase)
+admin.site.register(models.AnnualLeaveForm)
 admin.site.register(models.OldFormsDataBase)
 # admin.site.register(models.MyUsers)

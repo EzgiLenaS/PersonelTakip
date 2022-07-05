@@ -2,61 +2,57 @@ from django.views.generic import View, CreateView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import Profile, AdminProfile, EmployeeProfile, IzinFormlariDataBase, OldFormsDataBase
+from .models import Profile, AdminProfile, EmployeeProfile, AnnualLeaveForm, OldFormsDataBase
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .forms import AdminProfileCreationForm
 from django.contrib.auth import logout
 
+
 # import datetime
 # Create your views here.
-
 
 class SignupView(View):
     def get(self, request):
         form = AdminProfileCreationForm
 
-        return render(request, "signup.html", {"form": form})
+        return render(request, "company_signup.html", {"form": form})
 
     def post(self, request):
         form = AdminProfileCreationForm(request.POST)
 
         if form.is_valid():
             form.save()
-            return render(request, "login.html")
+            return render(request, "company_login.html")
         else:
             return HttpResponse("invalid")
 
 
-class LoginView(View):
+class CompanyLoginView(View):
     def get(self, request):
-        return render(request, "login.html")
+        return render(request, "company_login.html")
 
     def post(self, request):
-        first_name = request.POST.get("first_name")
-        password = request.POST.get("pass1")
+        username = request.POST.get("username")
+        password = request.POST.get("password1")
 
-        print("admin_username:", first_name)
-        print("password: ", password)
-
-        myuser = authenticate(username=first_name, password=password)
+        myuser = authenticate(username=username, password=password)
+        print(myuser)
         if myuser is not None:
             login(request, myuser)
-            print("girdi mi? success")
             messages.success(request, "Login Success")
             return redirect("main")
         else:
             messages.error(request, "Login Failed")
-            print("girdi mi? failed")
             return redirect("login")
 
 
-class CrudPersonelView(View):
+class CRDEmployeeView(View):
     def get(self, request):
         data = EmployeeProfile.objects.all()
         context = {"data": data}
-        return render(request, "crudPersonel.html", context)
+        return render(request, "crd_employee.html", context)
 
     def post(self, request):
         username = request.POST.get("username")
@@ -92,7 +88,6 @@ class CrudPersonelView(View):
 
 class UpdateDataView(View):
     def post(self, request, employee_id):
-        username = request.POST.get("username")
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         email = request.POST.get("email")
@@ -106,7 +101,6 @@ class UpdateDataView(View):
 
         edit = EmployeeProfile.objects.get(employee_id=employee_id)
 
-        edit.username = username
         edit.first_name = first_name
         edit.last_name = last_name
         edit.email = email
@@ -124,6 +118,7 @@ class UpdateDataView(View):
 
         d = EmployeeProfile.objects.get(employee_id=employee_id)
         context = {"d": d}
+
         return redirect("personel")
 
 
@@ -132,78 +127,82 @@ class DeleteDataView(View):
         d = EmployeeProfile.objects.get(employee_id=employee_id)
         d.delete()
         messages.error(request, "Data Deleted Successfully")
+
         return redirect("personel")
 
 
-class PersonelLoginView(View):
+class EmployeeLoginView(View):
     def get(self, request):
-        return render(request, "loginPersonel.html")
+        return render(request, "login_employee.html")
 
     def post(self, request):
-        employee_id = request.POST.get("personelid")
+        employee_id = request.POST.get("employee_id")
 
         edit = EmployeeProfile.objects.get(employee_id=employee_id)
         context = {"edit": edit}
+        print("edit: ", edit)
 
         if edit is not None:
             return redirect("personelinfo", employee_id)
         else:
             messages.error(request, "Login Failed")
             return redirect("personellogin")
-        return render(request, "loginPersonel.html")
 
 
 class InfoAndAnnualLeaveView(View):
     def get(self, request, employee_id):
         edit = EmployeeProfile.objects.get(employee_id=employee_id)
         context = {"edit": edit}
-        return render(request, "infoAndAnnualLeave.html", context)
+        return render(request, "employee_main_page.html", context)
 
     def post(self, request, employee_id):
         edit = EmployeeProfile.objects.get(employee_id=employee_id)
         reason = request.POST.get("reason")
-        dayoff = request.POST.get("dayoff")
-        query = IzinFormlariDataBase(employee_id=edit, reason=reason, dayoff=dayoff)
+        annual_leave = request.POST.get("annual_leave")
+        query = AnnualLeaveForm(employee_id=edit, reason=reason, annual_leave=annual_leave)
         query.save()
-        forms = OldFormsDataBase(employee_id=edit, reason=reason, dayoff=dayoff)
+        forms = OldFormsDataBase(employee_id=edit, reason=reason, annual_leave=annual_leave)
         forms.save()
+
         return redirect("personelinfo", employee_id)
 
 
 class CompanyMainPageView(View):
     def get(self, request):
+        return render(request, "company_main_page.html")
 
-        return render(request, "companyMainPage.html")
 
-
-class SetPermissionView(View):
+class CompanySetPermissionPageView(View):
     def get(self, request):
-        return render(request, "setPermission.html")
+        return render(request, "set_permission_page.html")
 
 
-class PermissionRequestView(View):
+class CompanyPermissionRequestPageView(View):
     def get(self, request):
-        forms = IzinFormlariDataBase.objects.all()
+        forms = AnnualLeaveForm.objects.all()
         context = {"forms": forms}
-        return render(request, "permissionRequest.html", context)
+
+        return render(request, "permission_request_page.html", context)
 
 
-class UpdatePermissionView(View):
+class CompanyUpdatePermissionPageView(View):
     def get(self, request, id):
-        edit = IzinFormlariDataBase.objects.get(id=id)
+        edit = AnnualLeaveForm.objects.get(id=id)
         personelold = EmployeeProfile.objects.get(
             employee_id=edit.employee_id.employee_id
         )
-        personelold.dayoffs = personelold.dayoffs - edit.dayoff
+
+        personelold.annual_leave = personelold.annual_leave - edit.annual_leave
         personelold.save()
         edit.delete()
+
         return redirect("permissionrequest")
 
 
-class DeletePermissionView(View):
+class CompanyDeletePermissionPageView(View):
     def get(self, request, id):
-        d = IzinFormlariDataBase.objects.get(id=id)
-        d.delete()
+        d = AnnualLeaveForm.objects.get(id=id).delete()
+
         return redirect("permissionrequest")
 
 
@@ -211,11 +210,11 @@ class OldFormsPageView(View):
     def get(self, request, employee_id):
         oldforms = OldFormsDataBase.objects.get(employee_id=employee_id)
         context = {"oldforms": oldforms}
-        print(context)
-        return render(request, "oldFormsPage.html", context)
+
+        return render(request, "old_forms_page.html", context)
 
 
-class DeleteFormsView(View):
+class EmployeeDeleteFormsPageView(View):
     def get(self, request, id):
         d = OldFormsDataBase.objects.get(id=id)
         d.delete()
@@ -225,4 +224,5 @@ class DeleteFormsView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
+        return redirect("login")
     # Redirect to a success page.

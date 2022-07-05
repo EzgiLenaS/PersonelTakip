@@ -21,16 +21,17 @@ class EmployeeProfile(Profile):
     start_date = models.DateField(max_length=25, blank=False, null=False)
 
     def __str__(self):
-        return self.name
+        return self.first_name
 
 
-class IzinFormlariDataBase(models.Model):
+class AnnualLeaveForm(models.Model):
     employee_id = models.ForeignKey(EmployeeProfile, on_delete=models.CASCADE)  # default=none
     reason = models.CharField(max_length=25, blank=False, null=False)
-    dayoff = models.IntegerField()
+    annual_leave = models.IntegerField()
 
 
 class OldFormsDataBase(models.Model):
     employee_id = models.ForeignKey(EmployeeProfile, on_delete=models.CASCADE)  # default=none
     reason = models.CharField(max_length=25, blank=False, null=False)
-    dayoff = models.IntegerField()
+    annual_leave = models.IntegerField()
+

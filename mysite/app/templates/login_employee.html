@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{%static 'css/main.css' %}">
   
 
-  <title>Signup</title>
+  <title>Personel Login</title>
   
 </head>
 <body>
@@ -25,17 +25,24 @@
       <img src="{% static 'images/personeltkp.png' %}" class="img-thumbnail" alt="">
     </div>
     <div class="col-md-4">
-      <h2 class="text-white text-center">Company Signup</h2>
-      <form action="{% url 'signup' %}" method="post"> {% csrf_token %}
-        {{form}}
+      <h2 class="text-white text-center">Personel Login</h2>
+
+      
+      
+      <form action="{% url 'personellogin' %}" method="post"> {% csrf_token %}
+        <label class="text-white">Personel Id</label>
+        <div class="form-group">
+          <input type="text" class="form-control" name="employee_id" id="employee_id" required>
+        </div>
 
         <div class="d-grid gap-2 mt-4">
-          <button class="btn btn-light" type="submit">Sign In</button>
+          <button class="btn btn-light" type="submit">Login</button>
         </div>
       </form>
-
-      <p class="mt-3" > Company Login <a href="{% url 'login' %}"> Company Login </a> </p>
-      <p class="mt-3" > Personel Login <a href="{% url 'personellogin' %}"> Personel Login </a> </p>
+      
+      
+      <p class="mt-3" > Company Sign Up <a href="{% url 'signup' %}"> Company Sign Up </a> </p>
+      <p class="mt-3" > Click for Company Login <a href="{% url 'login' %}"> Company Login </a> </p>
 
     </div>
   </div>
